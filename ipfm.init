@@ -2,7 +2,7 @@
 #
 # ipfm		IP Flow Meter
 #
-# chkconfig:    345 95 15
+# chkconfig:    345 99 15
 # description:  ipfm bandwidth analysis tool
 # processname:  ipfm
 # pidfile:      /var/run/ipfm.pid
@@ -27,8 +27,17 @@ PID=/var/run/ipfm.pid
 case "$1" in
   start)
 	if [ ! -f /var/lock/subsys/ipfm ]; then
-		msg_starting ipfm
-		daemon ipfm
+		for i in `echo /etc/ipfm/*.conf`; do
+			if [ -f /var/run/ipfm.pid ]; then
+				mv -f /var/run/ipfm.pid /var/run/ipfm.pid.tmp
+			fi
+			msg_starting "ipfm ($i)"
+			daemon ipfm -c $i
+			if [ -f /var/run/ipfm.pid.tmp ]; then
+				cat /var/run/ipfm.pid.tmp >> /var/run/ipfm.pid
+				rm -f /var/run/ipfm.pid.tmp
+			fi
+		done
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipfm
 	else
@@ -39,7 +48,15 @@ case "$1" in
   stop)
 	if [ -f /var/lock/subsys/ipfm ]; then
 		msg_stopping ipfm
-		killproc ipfm
+		busy
+		cat /var/run/ipfm.pid | xargs kill
+		RETVAL=$?
+		if [ $RETVAL -eq 0 ]; then
+			ok
+		else
+			fail
+		fi
+#		ok
 		rm -f /var/lock/subsys/ipfm /var/run/ipfm.pid >/dev/null 2>&1
 	else
 		msg_Not_Running ipfm
