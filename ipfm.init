@@ -2,7 +2,7 @@
 #
 # ipfm		IP Flow Meter
 #
-# chkconfig:    345 99 15
+# chkconfig:    345 95 15
 # description:  ipfm bandwidth analysis tool
 # processname:  ipfm
 # pidfile:      /var/run/ipfm.pid
