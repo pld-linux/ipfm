@@ -5,14 +5,14 @@ Version:	0.11.5
 Release:	1
 License:	GPL
 Group:		Networking/Utilities
-URL:		http://robert.cheramy.net/ipfm/
 Source0:	http://www.via.ecp.fr/~tibob/ipfm/archive/%{name}-%{version}.tgz
 Source1:	%{name}.init
-BuildRequires:	libpcap-devel
+URL:		http://robert.cheramy.net/ipfm/
 BuildRequires:	autoconf
-BuildRequires:	byacc
+BuildRequires:	bison
 BuildRequires:	flex
-Prereq:		chkconfig
+BuildRequires:	libpcap-devel
+Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir		/etc/%{name}
@@ -29,7 +29,7 @@ jakim stopniu poszczególne hosty wykorzystuj± dostêpne ³±cze do
 Internetu.
 
 %prep
-%setup  -q
+%setup -q
 
 %build
 %{__autoconf}
@@ -43,6 +43,9 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d}
 %{__make} ROOT=$RPM_BUILD_ROOT install
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add %{name}
@@ -59,9 +62,6 @@ if [ "$1" = "0" ]; then
 	fi
 	/sbin/chkconfig --del %{name}
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
