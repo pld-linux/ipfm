@@ -1,4 +1,4 @@
-# $revision: 1.27 $, $Date: 2004-04-09 15:20:44 $
+# $revision: 1.27 $, $Date: 2004-08-05 17:36:28 $
 
 %bcond_with	mysql	# build with experimental mysql support
 
@@ -10,6 +10,7 @@ Release:	2%{?with_mysql:.mysql}
 License:	GPL
 Group:		Networking/Utilities
 Source0:	http://robert.cheramy.net/ipfm/archive/devel/0.12/%{name}-%{version}.tgz
+# Source0-md5:	5952fe5a77023c6202a92cfbb400f7ba
 Source1:	%{name}.init
 Patch0:		%{name}-mysql.patch
 URL:		http://robert.cheramy.net/ipfm/
