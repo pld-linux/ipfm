@@ -29,18 +29,17 @@ Internetu.
 %setup  -q
 
 %build
-
 %{__autoconf}
 %configure
 %{__make} CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_initdir}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d}
 
 %{__make} ROOT=$RPM_BUILD_ROOT install
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/%{name}
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 
 %post
 /sbin/chkconfig --add %{name}
@@ -65,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc HISTORY TODO
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.conf
-%attr(754,root,root) %{_initdir}/%{name}
+%attr(754,root,root) /etc/rc.d/init.d/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}
 %dir %{_logdir}
 %{_mandir}/man[58]/*
