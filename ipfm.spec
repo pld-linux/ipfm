@@ -32,11 +32,11 @@ gzip -9nf HISTORY TODO
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT{%{_sbindir},%{_initdir}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_initdir}}
 
 %{__make} ROOT=$RPM_BUILD_ROOT install
 
-%{__install} %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/%{name}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/%{name}
 
 %post
 /sbin/chkconfig --add %{name}
