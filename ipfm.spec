@@ -8,7 +8,8 @@ Group(de):	Netzwerkwesen/Werkzeuge
 Group(pl):	Sieciowe/Narzêdzia
 Source0:	http://www.via.ecp.fr/~tibob/ipfm/archive/%{name}-%{version}.tgz
 Source1:	%{name}.init
-BuildRequires:	libpcap
+BuildRequires:	libpcap-devel
+Prereq:		rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -22,10 +23,10 @@ bandwidth specified hosts use on their Internet link.
 
 %configure
 %{__make} CFLAGS="%{rpmcflags}"
-gzip -9nf HISTORY INSTALL LICENSE TODO
+
+gzip -9nf HISTORY TODO
 
 %install
-
 rm -rf $RPM_BUILD_ROOT
 %{__install} -d $RPM_BUILD_ROOT%{_sbindir}
 
@@ -36,17 +37,17 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/chkconfig --add ipfm
 if [ -f /var/lock/subsys/ipfm ]; then
-    /etc/rc.d/init.d/ipfm restart 1>&2
+	/etc/rc.d/init.d/ipfm restart 1>&2
 else
-    echo "Run \"/etc/rc.d/init.d/ipfm start\" to start ipfm daemon."
+	echo "Run \"/etc/rc.d/init.d/ipfm start\" to start ipfm daemon."
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-    if [ -f /var/lock/subsys/ipfm ]; then
-	/etc/rc.d/init.d/ipfm stop 1>&2
-    fi
-    /sbin/chkconfig --del ipfm
+	if [ -f /var/lock/subsys/ipfm ]; then
+		/etc/rc.d/init.d/ipfm stop 1>&2
+	fi
+	/sbin/chkconfig --del ipfm
 fi
 
 %clean
