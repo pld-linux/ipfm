@@ -47,20 +47,10 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_initdir}}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/%{name}
 
 %post
-/sbin/chkconfig --add %{name}
-if [ -f /var/lock/subsys/%{name} ]; then
-	/etc/rc.d/init.d/%{name} restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/%{name} start\" to start %{name} daemon."
-fi
+DESC="ipfm daemon"; %chkconfig_add
 
 %preun
-if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/%{name} ]; then
-		/etc/rc.d/init.d/%{name} stop 1>&2
-	fi
-	/sbin/chkconfig --del %{name}
-fi
+%chkconfig_del
 
 %clean
 rm -rf $RPM_BUILD_ROOT
