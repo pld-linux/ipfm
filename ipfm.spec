@@ -60,4 +60,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(755,root,root) %{_sbindir}/*
 %dir /var/log/ipfm/
-%{_mandir}/*
+%{_mandir}/*/*
