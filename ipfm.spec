@@ -1,4 +1,5 @@
 Summary:	IP Flow Meter is a bandwidth analysis tool
+Summary(pl):	IP Flow Meter - program analizuj±cy wykorzystanie ³±cza
 Name:		ipfm
 Version:	0.11.4
 Release:	4
@@ -20,6 +21,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 IP Flow Meter is a bandwidth analysis tool, that measures how much
 bandwidth specified hosts use on their Internet link.
+
+%description -l pl
+IP Flow Meter to program analizuj±cy wykorzystanie ³±cza. Mierzy on,
+w jakim stopniu poszczególne hosty wykorzystuj± dostêpne ³±cze do
+Internetu.
 
 %prep
 %setup  -q 
