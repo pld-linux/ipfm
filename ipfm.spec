@@ -11,7 +11,7 @@ Source0:	http://www.via.ecp.fr/~tibob/ipfm/archive/%{name}-%{version}.tgz
 Source1:	%{name}.init
 BuildRequires:	libpcap-devel
 BuildRequires:	autoconf
-Prereq:		rc-scripts
+Prereq:		chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir		/etc/%{name}
