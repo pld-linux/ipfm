@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# ipfm    IP Flow Meter
+# ipfm		IP Flow Meter
 #
 # chkconfig:    345 99 15
 # description:  ipfm bandwidth analysis tool
@@ -15,9 +15,8 @@
 . /etc/sysconfig/network
 
 if is_no "${NETWORKING}"; then
-    # nls "ERROR: Networking is down. %s can't be run." <service>
-    msg_Network_Down ipfm
-    exit 1
+	msg_Network_Down ipfm
+	exit 1
 fi
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
@@ -63,9 +62,5 @@ case "$1" in
 	exit 1
 	;;
 esac
-  reload)
-	echo "Reloading $DESC configuration files."
-	start-stop-daemon --stop --signal 1 --quiet --pidfile \
-		/var/run/$NAME.pid --exec $DAEMON
-	;;
-exit 0
+
+exit $RETVAL
