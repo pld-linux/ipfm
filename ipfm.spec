@@ -21,12 +21,12 @@ IP Flow Meter is a bandwidth analysis tool, that measures how much
 bandwidth specified hosts use on their Internet link.
 
 %description -l pl
-IP Flow Meter to program analizuj±cy wykorzystanie ³±cza. Mierzy on,
-w jakim stopniu poszczególne hosty wykorzystuj± dostêpne ³±cze do
+IP Flow Meter to program analizuj±cy wykorzystanie ³±cza. Mierzy on, w
+jakim stopniu poszczególne hosty wykorzystuj± dostêpne ³±cze do
 Internetu.
 
 %prep
-%setup  -q 
+%setup  -q
 
 %build
 
