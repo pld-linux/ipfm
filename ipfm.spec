@@ -34,8 +34,6 @@ Internetu.
 %configure
 %{__make} CFLAGS="%{rpmcflags}"
 
-gzip -9nf HISTORY TODO
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_initdir}}
@@ -65,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc HISTORY TODO
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.conf
 %attr(754,root,root) %{_initdir}/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}
