@@ -1,0 +1,71 @@
+#! /bin/sh
+#
+# ipfm    IP Flow Meter
+#
+# chkconfig:    345 99 15
+# description:  ipfm bandwidth analysis tool
+# processname:  ipfm
+# pidfile:      /var/run/ipfm.pid
+# config:       /etc/ipfm/ipfm.conf
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+if is_no "${NETWORKING}"; then
+    # nls "ERROR: Networking is down. %s can't be run." <service>
+    msg_Network_Down ipfm
+    exit 1
+fi
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/ipfm
+NAME=ipfm
+PID=/var/run/ipfm.pid
+
+case "$1" in
+  start)
+	if [ ! -f /var/lock/subsys/ipfm ]; then
+		msg_starting ipfm
+		daemon ipfm
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipfm
+	else
+		msg_Already_Running ipfm
+		exit 1
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/ipfm ]; then
+		msg_stopping ipfm
+		killproc ipfm
+		rm -f /var/lock/subsys/ipfm /var/run/ipfm.pid >/dev/null 2>&1
+	else
+		msg_Not_Running ipfm
+		exit 1
+	fi
+	;;
+  status)
+	status ipfm
+	exit $?
+	;;
+  restart)
+	$0 stop
+	$0 start
+        ;;
+  reload)
+	kilproc --signal 1 `cat $PID`
+	;;
+  *)
+	msg_Usage "$0 {start|stop|restart|reload|status}"
+	exit 1
+	;;
+esac
+  reload)
+	echo "Reloading $DESC configuration files."
+	start-stop-daemon --stop --signal 1 --quiet --pidfile \
+		/var/run/$NAME.pid --exec $DAEMON
+	;;
+exit 0
