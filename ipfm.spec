@@ -30,7 +30,7 @@ Internetu.
 
 %build
 
-autoconf
+%{__autoconf}
 %configure
 %{__make} CFLAGS="%{rpmcflags}"
 
