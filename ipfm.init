@@ -28,6 +28,7 @@ DAEMON=/usr/sbin/ipfm
 NAME=ipfm
 PID=/var/run/ipfm.pid
 
+RETVAL=0
 case "$1" in
   start)
 	if [ ! -f /var/lock/subsys/ipfm ]; then
@@ -37,16 +38,15 @@ case "$1" in
 			fi
 			msg_starting "ipfm ($i)"
 			daemon ipfm -c $i
+			[ $RETVAL -eq 0 ] && RETVAL=$?
 			if [ -f /var/run/ipfm.pid.tmp ]; then
 				cat /var/run/ipfm.pid.tmp >> /var/run/ipfm.pid
 				rm -f /var/run/ipfm.pid.tmp
 			fi
 		done
-		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipfm
 	else
 		msg_already_running ipfm
-		exit 1
 	fi
 	;;
   stop)
@@ -55,15 +55,10 @@ case "$1" in
 		busy
 		cat /var/run/ipfm.pid | xargs kill
 		RETVAL=$?
-		if [ $RETVAL -eq 0 ]; then
-			ok
-		else
-			fail
-		fi
+		[ $RETVAL -eq 0 ] && ok || fail
 		rm -f /var/lock/subsys/ipfm /var/run/ipfm.pid >/dev/null 2>&1
 	else
 		msg_not_running ipfm
-		exit 1
 	fi
 	;;
   status)
@@ -73,14 +68,21 @@ case "$1" in
   restart)
 	$0 stop
 	$0 start
+	exit $?
 	;;
-  reload)
-	kilproc --signal 1 `cat $PID`
+  reload|force-reload)
+	if [ -f /var/lock/subsys/ipfm ]; then
+		msg_reloading ipfm
+		kilproc --signal 1 `cat $PID`
+		RETVAL=$?
+	else
+		msg_not_running ipfm >&2
+		exit 7
+	fi
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
-	;;
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
