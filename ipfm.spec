@@ -6,13 +6,13 @@ License:	GPL
 Group:		Networking/Utilities
 Group(de):	Netzwerkwesen/Werkzeuge
 Group(pl):	Sieciowe/Narzêdzia
-Source0:	http://www.via.ecp.fr/~tibob/ipfm/archive/ipfm-0.11.4.tgz
+Source0:	http://www.via.ecp.fr/~tibob/ipfm/archive/%{name}-%{version}.tgz
 BuildRequires:	libpcap
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-IP Flow Meter is a bandwidth analysis tool, that measures how much bandwidth
-specified hosts use on their Internet link.
+IP Flow Meter is a bandwidth analysis tool, that measures how much
+bandwidth specified hosts use on their Internet link.
 
 %prep
 %setup  -q 
