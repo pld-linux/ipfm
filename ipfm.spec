@@ -1,7 +1,8 @@
-# $revision: 1.27 $, $Date: 2004-10-28 12:22:22 $
-
+# $revision: 1.27 $, $Date: 2006-12-14 18:07:35 $
+#
+# Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
-
+#
 Summary:	IP Flow Meter is a bandwidth analysis tool
 Summary(pl):	IP Flow Meter - program analizuj±cy wykorzystanie ³±cza
 Name:		ipfm
@@ -44,13 +45,15 @@ Internetu.
 %build
 %{__autoconf}
 %configure
-%{__make} CFLAGS="%{rpmcflags}"
+%{__make} \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d}
 
-%{__make} ROOT=$RPM_BUILD_ROOT install
+%{__make} install \
+	ROOT=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 
