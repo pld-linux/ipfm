@@ -1,10 +1,10 @@
-# $revision: 1.27 $, $Date: 2006-12-14 18:07:35 $
+# $revision: 1.27 $, $Date: 2007-02-12 00:48:57 $
 #
 # Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
 #
 Summary:	IP Flow Meter is a bandwidth analysis tool
-Summary(pl):	IP Flow Meter - program analizuj±cy wykorzystanie ³±cza
+Summary(pl.UTF-8):   IP Flow Meter - program analizujÄ…cy wykorzystanie Å‚Ä…cza
 Name:		ipfm
 Version:	0.12.0pre1
 Release:	2%{?with_mysql:.mysql}
@@ -32,11 +32,11 @@ IP Flow Meter is a bandwidth analysis tool, that measures how much
 bandwidth specified hosts use on their Internet link.
 %{?with_mysql:This version is with experimental MySQL support.}
 
-%description -l pl
-IP Flow Meter to program analizuj±cy wykorzystanie ³±cza. Mierzy on, w
-jakim stopniu poszczególne hosty wykorzystuj± dostêpne ³±cze do
+%description -l pl.UTF-8
+IP Flow Meter to program analizujÄ…cy wykorzystanie Å‚Ä…cza. Mierzy on, w
+jakim stopniu poszczegÃ³lne hosty wykorzystujÄ… dostÄ™pne Å‚Ä…cze do
 Internetu.
-%{?with_mysql:Ta wersja eksperymentalnie obs³uguje MySQL-a.}
+%{?with_mysql:Ta wersja eksperymentalnie obsÅ‚uguje MySQL-a.}
 
 %prep
 %setup -q
