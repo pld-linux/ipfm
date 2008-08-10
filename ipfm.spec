@@ -1,4 +1,4 @@
-# $revision: 1.27 $, $Date: 2008-08-10 17:58:17 $
+# $revision: 1.27 $, $Date: 2008-08-10 18:00:06 $
 #
 # Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
@@ -42,7 +42,7 @@ Internetu.
 %{?with_mysql:Ta wersja eksperymentalnie obsługuje MySQL-a.}
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}%{snap}
 %{?with_mysql:%patch0 -p1}
 %patch1 -p0
 
