@@ -1,0 +1,20 @@
+--- configure.in.orig	2008-08-10 19:26:34.400746500 +0200
++++ configure.in	2008-08-10 19:30:08.370118750 +0200
+@@ -169,7 +169,7 @@
+                         [lockf(0, 0, 0);],
+                         [AC_DEFINE(HAVE_LOCKF)
+                         AC_MSG_RESULT(yes)],
+-            [AC_MSG_RESULT(no) lockf_found=no])
++            [AC_MSG_RESULT(no)], [lockf_found=no])
+ 
+ flock_found=yes
+ AC_MSG_CHECKING(for flock)
+@@ -177,7 +177,7 @@
+                        [flock(0, 0);],
+                        [AC_DEFINE(HAVE_FLOCK)
+                        AC_MSG_RESULT(yes)],
+-            [AC_MSG_RESULT(no) flockf_found=no])
++            [AC_MSG_RESULT(no)], [flockf_found=no])
+ 
+ if test $lockf_found = "no" -a $flock_found = "no" ; then
+        AC_MSG_ERROR(You need either flock or lockf support in order to compile ipfm)
