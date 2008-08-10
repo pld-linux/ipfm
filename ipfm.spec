@@ -1,4 +1,4 @@
-# $revision: 1.27 $, $Date: 2007-02-13 08:06:35 $
+# $revision: 1.27 $, $Date: 2008-08-10 17:32:50 $
 #
 # Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
@@ -14,6 +14,7 @@ Source0:	http://robert.cheramy.net/ipfm/archive/devel/0.12/%{name}-%{version}.tg
 # Source0-md5:	5952fe5a77023c6202a92cfbb400f7ba
 Source1:	%{name}.init
 Patch0:		%{name}-mysql.patch
+Patch1:		%{name}-configure.in.patch
 URL:		http://robert.cheramy.net/ipfm/
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -41,6 +42,7 @@ Internetu.
 %prep
 %setup -q
 %{?with_mysql:%patch0 -p1}
+%patch1 -p0
 
 %build
 %{__autoconf}
