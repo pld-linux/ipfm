@@ -1,4 +1,4 @@
-# $revision: 1.27 $, $Date: 2008-08-10 18:00:06 $
+# $revision: 1.27 $, $Date: 2008-08-10 18:01:26 $
 #
 # Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
@@ -10,6 +10,7 @@ Summary(pl.UTF-8):	IP Flow Meter - program analizujący wykorzystanie łącza
 Name:		ipfm
 Version:	0.12.0
 Release:	0.%{snap}%{?with_mysql:.mysql}.1
+Epoch:		1
 License:	GPL
 Group:		Networking/Utilities
 Source0:	http://robert.cheramy.net/ipfm/archive/devel/0.12/%{name}-%{version}%{snap}.tgz
