@@ -1,20 +1,20 @@
-# $revision: 1.27 $, $Date: 2010-06-07 18:06:26 $
+# $revision: 1.27 $, $Date: 2010-06-08 08:07:41 $
 #
 # Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
 #
-%define		snap	pre1
+%define		snap	rc1
 
 Summary:	IP Flow Meter is a bandwidth analysis tool
 Summary(pl.UTF-8):	IP Flow Meter - program analizujący wykorzystanie łącza
 Name:		ipfm
 Version:	0.12.0
-Release:	0.%{snap}%{?with_mysql:.mysql}.2
+Release:	0.%{snap}%{?with_mysql:.mysql}.1
 Epoch:		1
 License:	GPL
 Group:		Networking/Utilities
-Source0:	http://robert.cheramy.net/ipfm/archive/devel/0.12/%{name}-%{version}%{snap}.tgz
-# Source0-md5:	5952fe5a77023c6202a92cfbb400f7ba
+Source0:	http://robert.cheramy.net/ipfm/archive/%{name}-%{version}%{snap}.tgz
+# Source0-md5:	46925af88fb88888cbbdc278b340f5d6
 Source1:	%{name}.init
 Patch0:		%{name}-mysql.patch
 Patch1:		%{name}-configure.in.patch
