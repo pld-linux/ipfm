@@ -1,4 +1,3 @@
-# $revision: 1.27 $, $Date: 2010-06-08 08:54:06 $
 #
 # Conditional build:
 %bcond_with	mysql	# build with experimental MySQL support
